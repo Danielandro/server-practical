@@ -1,4 +1,6 @@
 class Notelist 
+  attr_reader :notes
+  
   def initialize(note = Note)
     @note = note
     @notes = []

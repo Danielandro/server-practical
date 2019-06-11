@@ -10,14 +10,18 @@ server = TCPServer.new(2345) #TCP server socket @ PORT 2345
 
 socket = server.accept #wait for client to connect
 
-loop do    
-  
-  socket.puts "What do you say?"
+notelist = Notelist.new
+
+loop do 
+
+  socket.puts "Write a note:"
 
   they_said = socket.gets.chomp
 
-  socket.puts "You said: #{they_said}. Goodbye!"
-
   socket.close if they_said == 'quit'
+
+  notelist.add_note(they_said)
+
+  socket.puts "Your notes: #{ notelist.notes.each { |note| socket.puts ( "-> " + note.text) } }"  
     
 end
